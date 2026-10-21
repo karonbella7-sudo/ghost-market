@@ -1,0 +1,21 @@
+/* A material curtain between the ticket and the existing corridor. */
+#crossing{position:fixed;inset:0;z-index:80;visibility:hidden;opacity:0;pointer-events:none;overflow:hidden;perspective:900px}
+body.is-crossing #crossing{visibility:visible;opacity:1;pointer-events:auto;animation:crossing-reveal 2.2s ease both}
+.crossing-sheet{position:absolute;top:0;height:100%;width:50%;background:#fff;overflow:hidden;will-change:transform,filter}
+/* Each panel clips one half of the same full-viewport image. Contain keeps
+   the complete original poster proportional, with white margins on wide screens. */
+.crossing-sheet::before{content:'';position:absolute;top:0;width:200%;height:100%;background:#fff url('assets/crossing-door.png') center/contain no-repeat}
+.crossing-left{left:0;transform-origin:left center}
+.crossing-right{right:0;transform-origin:right center}
+.crossing-left::before{left:0}
+.crossing-right::before{right:0}
+body.is-crossing .crossing-left{animation:crossing-left 2.2s cubic-bezier(.32,.04,.2,1) both}
+body.is-crossing .crossing-right{animation:crossing-right 2.2s cubic-bezier(.32,.04,.2,1) both}
+.crossing-light{position:absolute;inset:0;background:linear-gradient(90deg,transparent 32%,#ffffef 50%,transparent 68%);pointer-events:none;opacity:0}
+body.is-crossing .crossing-light{animation:crossing-light 2.2s ease both}
+body.is-crossing #instruction,body.is-crossing #feedback,body.is-crossing #inventory{visibility:hidden;pointer-events:none}
+@keyframes crossing-left{0%,12%{transform:translateX(0) rotateY(0);filter:blur(0)}100%{transform:translateX(-108%) rotateY(24deg);filter:blur(6px)}}
+@keyframes crossing-right{0%,12%{transform:translateX(0) rotateY(0);filter:blur(0)}100%{transform:translateX(108%) rotateY(-24deg);filter:blur(6px)}}
+@keyframes crossing-light{0%,12%{opacity:0;transform:scaleX(.02)}32%{opacity:.65;transform:scaleX(.35)}100%{opacity:0;transform:scaleX(2)}}
+@keyframes crossing-reveal{0%{opacity:0}12%,75%{opacity:1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){body.is-crossing #crossing{animation:crossing-reveal .4s ease both}body.is-crossing .crossing-sheet,body.is-crossing .crossing-light{animation:none}}

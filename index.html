@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ghost Market</title>
+  <link rel="preload" href="assets/crossing-door.png" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="app">
+    <section id="entry" aria-label="Entry"><div id="traces"></div><button id="ticket" aria-label="Enter the market"><i></i><b></b></button><div class="paper-noise"></div></section>
+    <section id="market" aria-label="Ghost Market"><canvas id="scene"></canvas><div id="market-fog"></div><div id="fade"></div></section>
+    <section id="inspection" aria-hidden="true"><button id="close-stall" aria-label="Back to market">×<span>BACK TO MARKET</span></button><div id="inspection-surface"><div id="inspection-products"></div></div></section>
+    <div id="inventory" aria-live="polite"><span id="inventory-guide">OFFER A TRACE TO EXCHANGE</span><div id="inventory-items"></div></div><div id="closed-message" aria-live="polite">YOU CAME AT THE WRONG TIME.</div><div id="acquired" aria-live="polite"><img alt=""><span></span></div><div id="offer-confirm" aria-modal="true" role="dialog"><p>OFFER THIS TRACE?</p><div><button data-answer="yes">YES</button><button data-answer="no">NO</button></div></div><div id="instruction" aria-live="polite"></div><div id="feedback" aria-live="polite"></div>
+  </main>
+  <div id="crossing" aria-hidden="true"><div class="crossing-sheet crossing-left"></div><div class="crossing-sheet crossing-right"></div><div class="crossing-light"></div></div>
+  <link rel="stylesheet" href="revision.css">
+  <link rel="stylesheet" href="crossing.css">
+  <link rel="stylesheet" href="ending.css">
+  <link rel="stylesheet" href="final.css">
+  <link rel="stylesheet" href="collection.css">
+  <section id="divination" aria-label="Three coin oracle" hidden></section>
+  <button id="found-open" hidden>FOUND</button>
+  <section id="found-panel" aria-label="Found traces" hidden><button id="found-close">CLOSE</button><p>FOUND</p><small>DRAG TO ARRANGE · DOUBLE CLICK TO TURN</small><div id="found-papers"></div></section>
+  <div id="found-toast"><img alt=""><span>FOUND.</span></div>
+  <button id="hidden-return" hidden>RETURN TO THE STREET</button>
+  <script src="asset-data.js"></script>
+  <script src="stall-assets.js"></script>
+  <script src="three.min.js"></script>
+  <script src="app.js"></script>
+  <script src="revision.js"></script>
+  <script src="ending.js"></script>
+  <script src="vendor-motion.js"></script>
+  <script src="shamian/shamian-data.js"></script>
+  <script src="shamian-scene.js"></script>
+  <script src="final.js"></script>
+  <script src="collection.js"></script>
+  <script src="ambience.js"></script>
+  <script src="market-audio.js"></script>
+  <script src="ticket-audio.js"></script>
+  <script src="door-audio.js"></script>
+  <script src="ending-audio.js"></script>
+</body>
+</html>

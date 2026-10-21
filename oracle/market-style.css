@@ -1,0 +1,40 @@
+/* Visual language adapted from ghost-market-stage2-visual-test.
+   Source site is read-only. Copied texture/stroke artwork stays local. */
+:root{--ink:#242420;--paper:#f4f4ef;--rust:#77786b;background:#f4f4ef;color:#242420}
+body{background:#f4f4ef;font-family:Arial,'Microsoft YaHei',sans-serif}
+body:before{background:url('assets/paper-grain.png') center/cover;opacity:.045;mix-blend-mode:multiply;z-index:0}
+body:after{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 43%,transparent 30%,#f4f4ef90 85%);z-index:0}
+main{position:relative;z-index:1;max-width:1440px;min-height:100vh;padding:30px 38px}
+header{border:0;padding:0;align-items:flex-start;font-family:'Courier New',monospace}
+.brand{font-size:12px;letter-spacing:.14em}.brand small{font-size:11px;opacity:.55}.edition{font-size:11px;letter-spacing:.12em;color:#65655d}
+.layout{display:block;position:relative;max-width:920px;margin:44px auto 0}
+.intro{position:absolute;left:0;top:74px;padding:0;z-index:1;pointer-events:none;width:210px}
+.eyebrow{font:10px/1.8 'Courier New','Microsoft YaHei',monospace;letter-spacing:.18em;color:#797970}
+h1{font:normal 25px/1.5 'Courier New','Microsoft YaHei',monospace;letter-spacing:.18em;margin:14px 0 25px}
+.intro p{font-size:12px;color:#717169;line-height:2.1}.hand{display:none}
+.layout>section{width:100%;padding-top:0}
+.scene{width:min(660px,100%);height:460px;margin:auto;background:transparent;border-radius:0}
+.ground{bottom:100px;left:12%;right:12%;background:radial-gradient(ellipse,#3c3b3117,transparent 67%);height:145px}
+.scene:before{content:'';position:absolute;left:50%;top:105px;width:470px;height:270px;transform:translateX(-50%) rotate(-9deg);background:url('assets/paper-grain.png') center/contain no-repeat;opacity:.18;mix-blend-mode:multiply;pointer-events:none}
+.shell{top:58px;filter:drop-shadow(0 20px 17px #24241d33)}
+.outer{background:repeating-conic-gradient(from 12deg,#66695b 0deg 24deg,#4d5145 25deg 27deg,#7c7c68 28deg 51deg,#414739 52deg 54deg);border-color:#858570;box-shadow:inset 0 8px 10px #c7c4a370,inset 0 -19px 15px #343b2e,0 7px 0 #464c3e}
+.outer:after{content:'';position:absolute;inset:0;border-radius:inherit;background:url('assets/paper-grain.png') center/cover;opacity:.6;mix-blend-mode:multiply;pointer-events:none}
+.rim{background:linear-gradient(140deg,#bab99b,#92927b 35%,#515644 68%,#a6a48a);box-shadow:0 4px 3px #343a2b}
+.bowl{background:radial-gradient(ellipse at 52% 72%,#929078 0%,#656854 47%,#303a2e 78%);box-shadow:inset 0 18px 23px #263021e0,inset 0 -5px 5px #c1b89999}
+.bowl:after{content:'';position:absolute;inset:0;background:url('assets/paper-grain.png') center/cover;opacity:.22;mix-blend-mode:multiply;pointer-events:none}
+.veins{opacity:.2}.mini{border-color:#b2aa89;background:#8f8667}
+.coin{background:radial-gradient(circle at 33% 25%,#c9c2a0,#a29a79 63%,#726f56);border-color:#aaa281;box-shadow:inset 0 0 0 3px #76715a,inset 0 0 0 5px #c2bb98,1px 4px 0 #747057,5px 9px 7px #33382f25;top:194px}
+.coin:after{content:'';position:absolute;inset:0;border-radius:50%;background:url('assets/paper-grain.png') center/cover;opacity:.24;mix-blend-mode:multiply;pointer-events:none}
+.coin .hole{background:#f0f0e9}.char{color:#555440;font-family:KaiTi,'STKaiti',serif}.coin-label{color:#737368;font:10px 'Courier New','Microsoft YaHei',monospace;top:85px}
+.scene-note{bottom:15px;color:#626259;letter-spacing:.14em;font:12px/1.8 'Courier New','Microsoft YaHei',monospace}
+.result{border:0;margin:3px auto 0;max-width:410px;min-height:100px;padding:14px 0;gap:20px}
+.verdict{color:#4c5043;font-size:49px;font-family:KaiTi,'STKaiti',serif;transform:rotate(-7deg);opacity:.86}
+.result h2{font:normal 17px/1.6 'Courier New','Microsoft YaHei',monospace;letter-spacing:.12em;margin-bottom:5px}.result p{font-size:12px;line-height:1.9;color:#74746a}
+.actions{justify-content:center;margin-top:9px}button.action{background:transparent;border:0;border-bottom:1px solid #a6a698;padding:10px 15px;font:12px 'Courier New','Microsoft YaHei',monospace;letter-spacing:.1em;transition:background .2s}button.action:hover{background:#e6e6de}button:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid #6b705e;outline-offset:5px}
+.rules{max-width:410px;margin:23px auto 0;color:#79796f;font-size:11px;line-height:2.1;letter-spacing:.03em}
+details{border:0;margin:32px 0 0;font:11px/1.9 'Courier New','Microsoft YaHei',monospace;color:#73736a;max-width:650px}details summary{font-size:10px;letter-spacing:.1em}details[open]{background:#f4f4eff2;padding:15px;margin-left:-15px;position:relative;z-index:3}.test{gap:14px}select{background:#f4f4ef;border-color:#c1c1b5}
+footer{margin-top:22px;font:10px/1.8 'Courier New','Microsoft YaHei',monospace;color:#858579;letter-spacing:.08em}
+.fragments{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}.fragment{position:absolute;object-fit:contain;mix-blend-mode:multiply;filter:contrast(1.13);opacity:.14}.stroke-one{width:145px;height:160px;right:10%;top:24%;transform:rotate(17deg)}.stroke-two{width:90px;height:150px;left:8%;top:59%;transform:rotate(-14deg);opacity:.11}.speech{width:240px;height:160px;right:6%;bottom:12%;transform:rotate(-9deg);opacity:.1}.printed-trace{position:absolute;left:-80px;top:-60px;width:470px;height:580px;background:url('assets/printed-traces.png') center/contain no-repeat;opacity:.055;mix-blend-mode:multiply;transform:rotate(12deg)}
+@media(min-width:1100px){.scene{transform:translateX(70px)}.result,.rules{transform:translateX(70px)}.actions{padding-left:140px}}
+@media(max-width:1099px) and (min-width:721px){.intro{left:-10px;top:45px;width:180px}.scene{transform:translateX(65px)}.result,.rules{transform:translateX(65px)}.actions{padding-left:130px}}
+@media(max-width:720px){main{padding:23px 21px}.layout{margin-top:36px}.intro{position:relative;top:auto;left:auto;width:100%;text-align:center}h1{font-size:22px;margin:8px 0 12px}.intro p{font-size:11px;line-height:1.8}.intro p br{display:none}.scene{height:395px;margin-top:8px}.shell{top:25px;scale:.9}.coin{top:178px}.scene:before{width:350px;top:70px}.scene-note{bottom:7px;font-size:11px}.result{margin-top:0;max-width:310px;min-height:90px}.result h2{font-size:15px}.rules{max-width:310px}.brand{font-size:10px}.brand small{display:block;margin-top:5px}.edition{font-size:9px}.stroke-one{right:-30px;top:28%;width:110px;opacity:.08}.speech{right:-50px;bottom:4%;opacity:.06}.stroke-two{left:-35px;top:67%;opacity:.07}details{margin-top:35px}footer{font-size:9px;gap:15px}}

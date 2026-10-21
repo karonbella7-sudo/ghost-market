@@ -1,0 +1,32 @@
+/* Three responsive regions of the original poster, without altering artwork. */
+@font-face{font-family:'Oracle Classical Mincho';src:url('fonts/WENYUE_GUDIANMINGCHAOTI_JRFC.OTF') format('opentype');font-weight:400;font-style:normal;font-display:block}
+:root{--poster-band:clamp(70px,12svh,135px);--paper:#f2ecdd;background:#e9e2d2}
+body{background:radial-gradient(ellipse at 50% 42%,#f7f2e7,#e9e2d2 85%)}
+body:before{opacity:.02;z-index:0}
+.poster-background{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;background:transparent;mix-blend-mode:multiply}
+.poster-background svg{position:absolute;display:block;width:100%;overflow:hidden}
+.poster-band{height:var(--poster-band);opacity:.94}
+.poster-top{top:0;border-bottom:1px solid #3335}
+.poster-bottom{bottom:0;border-top:1px solid #3335}
+.poster-field{top:23%;height:54%;opacity:.72;mask-image:radial-gradient(ellipse at 50% 45%,#0004 0%,#0008 24%,#000 65%);-webkit-mask-image:radial-gradient(ellipse at 50% 45%,#0004 0%,#0008 24%,#000 65%)}
+#oracle{z-index:1}
+#stage{height:min(520px,62svh);top:41%;z-index:2}
+#result{top:68%;z-index:5}
+#result:before{content:'';position:absolute;inset:-20px 0 -16px;background:radial-gradient(ellipse at center,#f2ecddf2, #f2ecddb8 25%,transparent 65%);z-index:-1;pointer-events:none}
+#verdict{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(135.2vw,1014px);height:81.12svh;white-space:nowrap;text-align:center;font-family:'Oracle Classical Mincho',serif;font-size:min(81.12svh,135.2vw);line-height:1;opacity:.6;z-index:1;pointer-events:none;user-select:none;color:#787063}
+#verdict svg{display:block;width:100%;height:100%;overflow:hidden;fill:currentColor}
+#verdict[data-characters="2"]{display:flex;width:min(270.4vw,2028px)}
+#verdict[data-characters="2"] svg{flex:0 0 50%;width:50%;overflow:visible}
+#verdict text{font-family:'Oracle Classical Mincho',serif;font-size:1000px;font-weight:400;letter-spacing:0}
+#verdict[data-outcome="open"]{color:#ba3825}
+#verdict[data-outcome="rest"]{color:#787063}
+.ground{z-index:0}
+#announcement{color:#34382f;font-size:clamp(20px,2.2vw,30px);font-weight:700;line-height:1.4;letter-spacing:.1em;padding:0 20px;text-shadow:0 0 5px #f2ecdd,0 0 12px #f2ecdd}
+.guidance{bottom:calc(var(--poster-band) + 13px);z-index:5}
+#hint{color:#45483e;text-shadow:0 0 6px #f2ecdd,0 0 12px #f2ecdd}
+#again{background:#f2ecddb8;border-color:#777c6b;color:#33382e}
+@media(max-aspect-ratio:3/4){:root{--poster-band:clamp(65px,13.4svh,135px)}.poster-field{top:22.5%;height:55%}.poster-band{opacity:.94}#stage{top:42%}#result{top:69%}}
+@media(max-height:650px){:root{--poster-band:clamp(48px,10svh,70px)}.poster-field{top:21%;height:58%}#stage{top:39%;height:56svh}#result{top:65%}#announcement{margin-top:5px}.guidance{bottom:calc(var(--poster-band) + 6px)}#hint{margin-bottom:5px}#again{padding:6px 12px}}
+
+
+
