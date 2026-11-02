@@ -8,6 +8,8 @@
 .composition-stroke{z-index:1}
 .composition-threads{position:absolute;inset:0;width:1000px;height:700px;overflow:visible;z-index:0;pointer-events:none}
 .composition-thread{fill:none;stroke:#c52325;opacity:.85;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:thread-reveal 1.8s cubic-bezier(.25,.6,.25,1) forwards,thread-breathe 3.6s ease-in-out infinite;animation-delay:var(--thread-delay,0s),calc(var(--thread-delay,0s) + 1.8s)}
+.composition-thread{animation-play-state:paused}
+#composition.finished .composition-thread{animation-play-state:running}
 @keyframes thread-breathe{0%,100%{stroke-opacity:.62;stroke-width:2.2}50%{stroke-opacity:1;stroke-width:2.8}}
 .composition-thread.flow{stroke:#ed5040;stroke-width:1.2;stroke-dasharray:.035 .16;animation:thread-flow 8s linear infinite;opacity:0;animation-delay:3.8s}
 @keyframes thread-reveal{to{stroke-dashoffset:0}}@keyframes thread-flow{0%{opacity:.75;stroke-dashoffset:1}100%{opacity:.75;stroke-dashoffset:0}}

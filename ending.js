@@ -86,20 +86,27 @@ function beginComposition(){
 }
 function finishComposition(){
   if(phase!=='composition'||!compositionDragged||compositionDrag)return;
-  phase='finished';finish.disabled=true;
-  state.endingStartedAt=performance.now();AudioManager.play('endingReveal');
+  phase='finishing';finish.disabled=true;controls.keys.clear();velocity=0;
   state.finalComposition=arrangement.map(({src,x,y})=>({src,x,y}));
   const left=Math.min(...arrangement.map(p=>p.x)),top=Math.min(...arrangement.map(p=>p.y));
   const right=Math.max(...arrangement.map(p=>p.x+104)),bottom=Math.max(...arrangement.map(p=>p.y+104));
   const scale=Math.min(1.5,980/(right-left),620/(bottom-top));
   // One common transform preserves every relative position and overlap exactly.
-  pieces.style.transform=`translate(${500-(left+right)*scale/2}px,${320-(top+bottom)*scale/2}px) scale(${scale})`;
-  composition.classList.add('finished');
+  const finalTransform=`translate(${500-(left+right)*scale/2}px,${320-(top+bottom)*scale/2}px) scale(${scale})`;
   drawCompositionThreads();
   // Reveal the actual existing Gaussian street renderer, not a substitute picture.
   market.classList.remove('fading');market.classList.add('active');
   camera.position.set(0,1.75,-12);camera.rotation.set(0,0,0);camera.updateMatrixWorld();
-  exploreAgain.hidden=false;
+  // Prepare the street and SVG beneath the opaque board before starting any clocks.
+  // Shader/texture work must not consume the reveal's first frames.
+  renderer.render(scene,camera);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    if(phase!=='finishing')return;
+    phase='finished';state.endingStartedAt=performance.now();
+    pieces.style.transform=finalTransform;
+    composition.classList.add('finished');
+    AudioManager.play('endingReveal');exploreAgain.hidden=false;
+  }));
 }
 // A sparse spatial graph: minimum-length connections plus a few local links.
 function compositionConnections(nodes){
