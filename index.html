@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+<section id="loading-screen" style="position:fixed;inset:0;z-index:99999;background:#f5f5f0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;font:16px monospace">
+<p>GHOST MARKET</p><progress id="loading-progress" value="0" max="100" aria-label="Loading experience" style="width:min(360px,75vw);accent-color:#333"></progress><p id="loading-label" role="status">LOADING EXPERIENCE · 0%</p>
+</section>
   <main id="app">
     <section id="entry" aria-label="Entry"><div id="traces"></div><button id="ticket" aria-label="Enter the market"><i></i><b></b></button><div class="paper-noise"></div></section>
     <section id="market" aria-label="Ghost Market"><canvas id="scene"></canvas><div id="market-fog"></div><div id="fade"></div></section>
@@ -25,22 +28,7 @@
   <section id="found-panel" aria-label="Found traces" hidden><button id="found-close">CLOSE</button><p>FOUND</p><small>DRAG TO ARRANGE · DOUBLE CLICK TO TURN</small><div id="found-papers"></div></section>
   <div id="found-toast"><img alt=""><span>FOUND.</span></div>
   <button id="hidden-return" hidden>RETURN TO THE STREET</button>
-  <script src="asset-data.js"></script>
-  <script src="stall-assets.js"></script>
-  <script src="three.min.js"></script>
-  <script src="app.js"></script>
-  <script src="revision.js"></script>
-  <script src="ending.js"></script>
-  <script src="vendor-motion.js"></script>
-  <script src="shamian/shamian-data.js"></script>
-  <script src="shamian-scene.js"></script>
-  <script src="final.js"></script>
-  <script src="reward-loading.js"></script>
-  <script src="collection.js"></script>
-  <script src="ambience.js"></script>
-  <script src="market-audio.js"></script>
-  <script src="ticket-audio.js"></script>
-  <script src="door-audio.js"></script>
-  <script src="ending-audio.js"></script>
+<script type="application/json" id="boot-scripts">["asset-data.js","stall-assets.js","three.min.js","app.js","revision.js","ending.js","vendor-motion.js","shamian/shamian-data.js","shamian-scene.js","final.js","reward-loading.js","collection.js","ambience.js","market-audio.js","ticket-audio.js","door-audio.js","ending-audio.js","pointer-lock.js"]</script>
+<script src="boot.js"></script>
 </body>
 </html>

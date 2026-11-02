@@ -172,7 +172,7 @@ onSceneClick=function(e){
   const hit=raycaster.intersectObjects(interactables.filter(m=>m.userData.type!=='ghost'))[0];if(hit&&hit.distance<13)openInspection(hit.object.userData.cfg);
 };
 canvas.addEventListener('pointerdown',e=>{e.stopImmediatePropagation();onSceneClick(e);},true);
-addEventListener('pointermove',e=>{if(e.target!==canvas)return;e.stopImmediatePropagation();if(!moving()||freeCursor()){lastPointer=null;return;}if(lastPointer){controls.yaw-=(e.clientX-lastPointer.x)*.003;controls.pitch=THREE.MathUtils.clamp(controls.pitch-(e.clientY-lastPointer.y)*.003,-Math.PI/4,Math.PI/4);}lastPointer={x:e.clientX,y:e.clientY};},{capture:true});
+addEventListener('pointermove',e=>{if(e.target!==canvas)return;e.stopImmediatePropagation();lastPointer=null;return;if(!moving()||freeCursor()){lastPointer=null;return;}if(lastPointer){controls.yaw-=(e.clientX-lastPointer.x)*.003;controls.pitch=THREE.MathUtils.clamp(controls.pitch-(e.clientY-lastPointer.y)*.003,-Math.PI/4,Math.PI/4);}lastPointer={x:e.clientX,y:e.clientY};},{capture:true});
 function applyLayerVisuals(dt,t){
   if(open&&layer>=4)updateVendorTypography(dt);
   ghosts.forEach(g=>{
@@ -320,4 +320,5 @@ animate=function(t){
   retainedAnimate(t);
 };
 renderEntry();
+
 

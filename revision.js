@@ -25,7 +25,7 @@ const controls={keys:new Set(),alt:false,modal:false,busy:false,yaw:0,pitch:0,mo
 let lastFrame=0,stepDistance=0,ghostHosts=new Set(),inventorySignature='',lastPointer=null;
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const moving=()=>['market','closed'].includes(phase)&&!controls.modal&&!controls.busy;
-const freeCursor=()=>controls.alt||controls.modal||phase==='inspect'||controls.busy;
+const freeCursor=()=>document.pointerLockElement!==canvas||controls.alt||controls.modal||phase==='inspect'||controls.busy;
 const textures=new Map();
 DATA.texts=Object.keys(LOCAL_ASSETS).filter(s=>s.startsWith('assets/v2/text/'));
 inspection.addEventListener('pointerdown',e=>{if(controls.busy){e.preventDefault();e.stopImmediatePropagation()}},true);
@@ -62,3 +62,4 @@ renderEntry=function(){controls.keys.clear();controls.modal=controls.busy=false;
 $('#offer-confirm p').textContent='TRADE THIS ITEM?';
 // Bind the revised implementations only after loading the correction layer.
 initThree();renderer.outputEncoding=THREE.sRGBEncoding;scene.fog.near=16;renderEntry();
+
