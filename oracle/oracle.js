@@ -45,7 +45,9 @@ shell.addEventListener('pointerdown',event=>{if(event.button!==0||!begin())retur
 shell.addEventListener('pointermove',event=>{if(phase!=='shaking'||event.pointerId!==pointer)return;window.oracleAudio?.move(event.clientX,event.clientY);const dx=Math.max(-23,Math.min(23,(event.clientX-start.x)*.28)),dy=Math.max(-9,Math.min(9,(event.clientY-start.y)*.15));shell.style.setProperty('--dx',`${dx}px`);shell.style.setProperty('--dy',`${dy}px`);shell.style.setProperty('--tilt',`${dx*.4}deg`)});
 shell.addEventListener('pointerup',event=>{if(event.pointerId===pointer)cast()});shell.addEventListener('pointercancel',cancel);shell.addEventListener('lostpointercapture',()=>{if(pointer!==null)cancel()});
 shell.addEventListener('keydown',event=>{if(![' ','Enter'].includes(event.key))return;event.preventDefault();if(!event.repeat&&begin()){keyboard=true;window.oracleAudio?.begin(0,0);window.oracleAudio?.keyboard();shell.classList.add('keyboard-shake')}});shell.addEventListener('keyup',event=>{if(![' ','Enter'].includes(event.key))return;event.preventDefault();if(keyboard)cast()});shell.addEventListener('blur',()=>{if(keyboard)cancel()});window.addEventListener('blur',cancel);document.addEventListener('visibilitychange',()=>{if(document.hidden)cancel()});$('again').addEventListener('click',()=>{window.oracleAudio?.unlock();enter()});
-Promise.all(['turtle-shell','coin-script','coin-pattern'].map(name=>new Promise((resolve,reject)=>{const image=new Image();image.onload=resolve;image.onerror=reject;image.src=`assets/${name}.png`}))).then(enter).catch(()=>{$('hint').textContent='ARTWORK COULD NOT LOAD. KEEP THE ASSETS FOLDER BESIDE THIS PAGE.'});
+Promise.all([document.fonts.load('1000px "Oracle Classical Mincho"','吉鸿运平'), ...['turtle-shell','coin-script','coin-pattern'].map(name=>new Promise((resolve,reject)=>{const image=new Image();image.onload=resolve;image.onerror=reject;image.src=`assets/${name}.png`}))]).then(enter).catch(()=>{$('hint').textContent='ARTWORK COULD NOT LOAD. KEEP THE ASSETS FOLDER BESIDE THIS PAGE.'});
+
+
 
 
 

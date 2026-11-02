@@ -277,7 +277,7 @@ function collectCard(src,note){
   recordAchievement(src,inHidden?'HIDDEN MARKET':'FOUND');
   if(state.foundTraces.some(c=>c.src===src))return;
   if(DATA.stalls.some(c=>c.products.includes(src)))state.acquiredProducts.push(src);
-  state.foundTraces.push({src,note});const toast=$('#found-toast');toast.querySelector('img').src=src;toast.classList.add('show');clearTimeout(foundTimer);foundTimer=setTimeout(()=>toast.classList.remove('show'),1900);AudioManager.play('foundAcquire');updateInventory();
+  state.foundTraces.push({src,note});revealFound(src);AudioManager.play('foundAcquire');updateInventory();
 }
 foundButton.addEventListener('click',()=>{
   if(controls.busy||controls.modal||!state.foundTraces.length)return;foundReturn=phase;phase='found';controls.keys.clear();velocity=0;foundPanel.hidden=false;foundPapers.replaceChildren();foundButton.hidden=true;AudioManager.play('paperOpen');
@@ -320,3 +320,4 @@ animate=function(t){
   retainedAnimate(t);
 };
 renderEntry();
+
