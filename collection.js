@@ -38,7 +38,7 @@ function closeAchievements(){if(phase!=='achievements')return;achievementPanel.h
 achievementClose.addEventListener('click',closeAchievements);
 addEventListener('keydown',e=>{if(e.code==='Escape'&&phase==='achievements'){e.stopImmediatePropagation();closeAchievements();}},true);
 const collectionAward=awardStroke;
-awardStroke=function(){const result=collectionAward();if(result)recordAchievement(state.collectedStrokes[state.collectedStrokes.length-1],'VENDOR');return result;};
+awardStroke=function(...args){const result=collectionAward(...args);if(result)recordAchievement(state.collectedStrokes[state.collectedStrokes.length-1],'VENDOR');return result;};
 const collectionAcquired=showAcquired;
 showAcquired=function(src,label,preview=false){if(label==='OBJECT'&&!preview)recordAchievement(src,inHidden?'HIDDEN MARKET':'TRADE');collectionAcquired(src,label);};
 const collectionRecollect=recollectTrace;

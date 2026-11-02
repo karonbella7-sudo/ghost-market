@@ -66,8 +66,9 @@ enterMarket=function(){
   if(open){state.successfulVisitCount++;closedRun=0;}else closedRun++;
   layer=Math.min(7,state.successfulVisitCount);
   state.currentStrokeQuota=open?(Math.random()<.5?2:3):2;state.currentStrokesCollected=0;
-  eligibleProducts=new Set(shuffle(DATA.stalls).slice(0,state.currentStrokeQuota).map(c=>pick(c.products)));
-  ghostHosts=new Set(shuffle(DATA.stalls).slice(0,state.currentStrokeQuota).map(c=>c.id));
+  state.ambientStrokesCollected=0;
+  eligibleProducts=new Set(DATA.stalls.filter(()=>Math.random()<2/3).map(c=>pick(c.products)));
+  ghostHosts=new Set(DATA.stalls.filter(()=>Math.random()<2/3).map(c=>c.id));
   currentZ=targetZ=3;playerX=0;velocity=0;activeGhost=null;selectedStroke=null;controls.keys.clear();controls.alt=controls.busy=controls.modal=false;controls.yaw=0;lastPointer=null;
   state.arrangements={};resetWorld();
   // Refreshing language uses cached maps; prepare every eligible text first.
@@ -113,10 +114,13 @@ function createInk(){
 }
 function recollectTrace(src){if(!state.behaviorTraces.includes(src))state.behaviorTraces.push(src);}
 const retainedRecordProduct=recordProduct;
-recordProduct=function(src){retainedRecordProduct(src);if(layer>=2&&eligibleProducts.has(src)){eligibleProducts.delete(src);awardStroke();}if(layer>=7)recollectTrace(src);};
+recordProduct=function(src){retainedRecordProduct(src);if(layer>=2&&eligibleProducts.has(src)){eligibleProducts.delete(src);awardStroke('product');}if(layer>=7)recollectTrace(src);};
 // Preserve the existing missing-type weighting and historical discovery semantics.
-awardStroke=function(){
-  if(state.currentStrokesCollected>=state.currentStrokeQuota)return false;
+awardStroke=function(source='ambient'){
+  if(source==='ambient'){
+    if((state.ambientStrokesCollected||0)>=state.currentStrokeQuota)return false;
+    state.ambientStrokesCollected=(state.ambientStrokesCollected||0)+1;
+  }
   const src=chooseEncounterStroke();state.currentStrokesCollected++;state.collectedStrokes.push(src);state.availableStrokes.push(src);
   if(!state.discoveredStrokeTypes.includes(src)){state.discoveredStrokeTypes.push(src);state.duplicateStrokeRun=0;}else state.duplicateStrokeRun++;
   state.endingReady=strokeTypes.length>0&&state.discoveredStrokeTypes.length===strokeTypes.length;
@@ -127,7 +131,7 @@ awardStroke=function(){
 interactGhost=function(g){
   if(!open||layer<3||distance(g.group)>=10)return;
   activeGhost=g;g.pulse=1;AudioManager.play('ghostReveal');
-  if(ghostHosts.has(g.cfg.id)&&awardStroke())ghostHosts.delete(g.cfg.id);
+  if(ghostHosts.has(g.cfg.id)&&awardStroke('vendor'))ghostHosts.delete(g.cfg.id);
   if(layer>=7){g.typography.items.forEach((item,i)=>{if(g.cfg.id!==3)item.m.position.x+=(i%2?.35:-.35);});recollectTrace(g.typography.items[0].src);}
   inventorySignature='';updateInventory();if(layer>=5&&!controls.busy)msg('SELECT A STROKE TO TRADE');
 };
@@ -168,7 +172,7 @@ onSceneClick=function(e){
   if(!open)return;
   if(layer>=3){const hit=raycaster.intersectObjects(ghosts.filter(g=>distance(g.group)<10).map(g=>g.hit))[0];if(hit){interactGhost(ghosts.find(g=>g.hit===hit.object));return;}}
   if(layer>=2){const hit=raycaster.intersectObjects(ink.filter(m=>m.visible))[0];if(hit&&hit.distance<10){if(awardStroke()){hit.object.visible=false;hit.object.userData.used=true;}return;}}
-  if(layer>=4){const words=ghosts.flatMap(g=>g.typography.items.map(i=>i.m));const hit=raycaster.intersectObjects(words)[0];if(hit&&hit.distance<10){const g=ghosts.find(g=>g.typography.items.some(i=>i.m===hit.object));g.pulse=1;if(ghostHosts.has(g.cfg.id)&&awardStroke())ghostHosts.delete(g.cfg.id);else AudioManager.play('textTouch');if(layer>=7){hit.object.position.x+=.6;hit.object.position.y+=.25;const item=g.typography.items.find(i=>i.m===hit.object);item.composed=hit.object.position.clone();recollectTrace(item.src);}return;}}
+  if(layer>=4){const words=ghosts.flatMap(g=>g.typography.items.map(i=>i.m));const hit=raycaster.intersectObjects(words)[0];if(hit&&hit.distance<10){const g=ghosts.find(g=>g.typography.items.some(i=>i.m===hit.object));g.pulse=1;if(ghostHosts.has(g.cfg.id)&&awardStroke('vendor'))ghostHosts.delete(g.cfg.id);else AudioManager.play('textTouch');if(layer>=7){hit.object.position.x+=.6;hit.object.position.y+=.25;const item=g.typography.items.find(i=>i.m===hit.object);item.composed=hit.object.position.clone();recollectTrace(item.src);}return;}}
   const hit=raycaster.intersectObjects(interactables.filter(m=>m.userData.type!=='ghost'))[0];if(hit&&hit.distance<13)openInspection(hit.object.userData.cfg);
 };
 canvas.addEventListener('pointerdown',e=>{e.stopImmediatePropagation();onSceneClick(e);},true);
@@ -320,5 +324,6 @@ animate=function(t){
   retainedAnimate(t);
 };
 renderEntry();
+
 
 
